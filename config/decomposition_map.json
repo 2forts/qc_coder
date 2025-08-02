@@ -1,0 +1,122 @@
+{
+  "MYGATE": [
+    {
+      "name": "H",
+      "targets": [
+        0
+      ],
+      "controls": [],
+      "params": []
+    },
+    {
+      "name": "T",
+      "targets": [
+        0
+      ],
+      "controls": [],
+      "params": []
+    }
+  ],
+  "RZ90": [
+    {
+      "name": "RZ",
+      "targets": [
+        0
+      ],
+      "controls": [],
+      "params": [
+        1.5708
+      ]
+    }
+  ],
+  "TOFFOLI": [
+    {
+      "name": "H",
+      "targets": [
+        2
+      ],
+      "controls": [],
+      "params": []
+    },
+    {
+      "name": "CNOT",
+      "targets": [
+        2
+      ],
+      "controls": [
+        1
+      ],
+      "params": []
+    },
+    {
+      "name": "T",
+      "targets": [
+        2
+      ],
+      "controls": [],
+      "params": []
+    },
+    {
+      "name": "CNOT",
+      "targets": [
+        2
+      ],
+      "controls": [
+        0
+      ],
+      "params": []
+    },
+    {
+      "name": "Tdg",
+      "targets": [
+        2
+      ],
+      "controls": [],
+      "params": []
+    },
+    {
+      "name": "CNOT",
+      "targets": [
+        2
+      ],
+      "controls": [
+        1
+      ],
+      "params": []
+    },
+    {
+      "name": "T",
+      "targets": [
+        2
+      ],
+      "controls": [],
+      "params": []
+    },
+    {
+      "name": "CNOT",
+      "targets": [
+        2
+      ],
+      "controls": [
+        0
+      ],
+      "params": []
+    },
+    {
+      "name": "Tdg",
+      "targets": [
+        2
+      ],
+      "controls": [],
+      "params": []
+    },
+    {
+      "name": "H",
+      "targets": [
+        2
+      ],
+      "controls": [],
+      "params": []
+    }
+  ]
+}
