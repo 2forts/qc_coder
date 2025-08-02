@@ -1,7 +1,7 @@
 import pytest
 from math import pi
-from qc_coder.gates import Instruction
-from qc_coder.translator.qiskit_translator import QiskitTranslator
+from gates import Instruction
+from translator.qiskit_translator import QiskitTranslator
 
 # Skip tests if Qiskit is not installed
 def pytest_configure(config):
