@@ -9,7 +9,7 @@ class QiskitTranslator(BaseTranslator):
     def __init__(self, num_qubits: int):
         try:
             from qiskit import QuantumCircuit
-n        except ImportError:
+        except ImportError:
             raise ImportError("Para usar QiskitTranslator, instala qiskit con 'pip install qiskit'.")
         self.circuit = QuantumCircuit(num_qubits)
 
