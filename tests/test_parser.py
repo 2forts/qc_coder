@@ -1,6 +1,6 @@
 import pytest
-from parser import Parser
-from gates import Instruction
+from qc_coder.parser import Parser
+from qc_coder.gates import Instruction
 
 
 def test_parse_single_qubit_gate():
