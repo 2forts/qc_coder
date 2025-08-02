@@ -1,6 +1,6 @@
 from typing import List
 from .base import BaseTranslator
-from gates import Instruction
+from qc_coder.gates import Instruction
 
 class QiskitTranslator(BaseTranslator):
     """
