@@ -1,6 +1,6 @@
 from typing import List
 from .base import BaseTranslator
-from qc_coder.gates import Instruction
+from gates import Instruction
 import cirq
 
 class CirqTranslator(BaseTranslator):
