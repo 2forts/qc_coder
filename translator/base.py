@@ -1,5 +1,5 @@
 from typing import List
-from qc_coder.gates import Instruction
+from gates import Instruction
 
 
 class BaseTranslator:
