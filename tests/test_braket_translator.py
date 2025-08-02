@@ -1,7 +1,7 @@
 import pytest
 from math import pi
-from qc_coder.gates import Instruction
-from qc_coder.translator.braket_translator import BraketTranslator
+from gates import Instruction
+from translator.braket_translator import BraketTranslator
 
 # Saltar tests si Amazon Braket SDK no está instalado
 def pytest_configure(config):
