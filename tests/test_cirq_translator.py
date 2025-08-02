@@ -1,7 +1,7 @@
 import pytest
 from math import pi
-from qc_coder.gates import Instruction
-from qc_coder.translator.cirq_translator import CirqTranslator
+from gates import Instruction
+from translator.cirq_translator import CirqTranslator
 
 # Saltar tests si Cirq no está instalado
 def pytest_configure(config):
