@@ -22,27 +22,31 @@ class BraketTranslator(BaseTranslator):
         :param instructions: Lista de objetos Instruction.
         :return: braket.circuits.Circuit con las puertas aplicadas.
         """
+        # Reinicializa el circuito para cada llamada
+        from braket.circuits import Circuit
+        self.circuit = Circuit()
         for instr in instructions:
             name = instr.name.upper()
             if name == 'X':
-                self.circuit.x(targets=instr.targets)
+                self.circuit.x(instr.targets[0])
             elif name == 'Y':
-                self.circuit.y(targets=instr.targets)
+                self.circuit.y(instr.targets[0])
             elif name == 'Z':
-                self.circuit.z(targets=instr.targets)
+                self.circuit.z(instr.targets[0])
             elif name == 'H':
-                self.circuit.h(targets=instr.targets)
+                self.circuit.h(instr.targets[0])
             elif name == 'S':
-                self.circuit.s(targets=instr.targets)
+                self.circuit.s(instr.targets[0])
             elif name == 'T':
-                self.circuit.t(targets=instr.targets)
+                self.circuit.t(instr.targets[0])
             elif name in ('CNOT', 'CX'):
                 # Braket cnot usa control y target en lista
                 self.circuit.cnot(control=instr.controls[0], target=instr.targets[0])
-            elif name == 'RX':
-                self.circuit.rx(angle=instr.params[0], targets=instr.targets)
+            elif instr.name == 'RX':
+                # qubit primero, luego ángulo
+                self.circuit.rx(instr.targets[0], instr.params[0])
             elif name == 'RZ':
-                self.circuit.rz(angle=instr.params[0], targets=instr.targets)
+                self.circuit.rz(instr.targets[0], instr.params[0])
             else:
                 raise ValueError(f"Puerta '{name}' no soportada por BraketTranslator.")
         return self.circuit

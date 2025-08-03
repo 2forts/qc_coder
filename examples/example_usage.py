@@ -1,6 +1,6 @@
 import json
-from interface import UnifiedInterface
-from gates import Instruction
+from qc_coder.interface import UnifiedInterface
+from qc_coder.gates import Instruction
 
 
 def load_decomposition_map(path: str):

@@ -19,7 +19,12 @@ class CirqTranslator(BaseTranslator):
         :param instructions: Lista de objetos Instruction.
         :return: cirq.Circuit con las puertas aplicadas.
         """
+        # Reinicia el circuito para cada llamada
+        import cirq
+        self.circuit = cirq.Circuit()
         for instr in instructions:
+            # obtenemos el cirq.LineQubit correspondiente
+            qubit = self.qubits[instr.targets[0]]
             name = instr.name.upper()
             if name == 'X':
                 self.circuit.append(cirq.X(self.qubits[instr.targets[0]]))
@@ -36,9 +41,9 @@ class CirqTranslator(BaseTranslator):
             elif name in ('CNOT', 'CX'):
                 self.circuit.append(cirq.CNOT(self.qubits[instr.controls[0]], self.qubits[instr.targets[0]]))
             elif name == 'RX':
-                self.circuit.append(cirq.rx(instr.params[0])(self.qubits[instr.targets[0]]))
+                self.circuit.append(cirq.Rx(rads=instr.params[0]).on(qubit))
             elif name == 'RZ':
-                self.circuit.append(cirq.rz(instr.params[0])(self.qubits[instr.targets[0]]))
+                self.circuit.append(cirq.Rz(rads=instr.params[0]).on(qubit))
             else:
                 raise ValueError(f"Puerta '{name}' no soportada por CirqTranslator.")
         return self.circuit
