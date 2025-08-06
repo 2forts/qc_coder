@@ -1,25 +1,25 @@
 # qc_coder
 
-**Método y sistema implementado por ordenador para la codificación eficiente de circuitos cuánticos mediante entrada simbólica estructurada**
+**Method and computer-implemented system for efficient encoding of quantum circuits using structured symbolic input**
 
-Un paquete Python ligero para parsear instrucciones simbólicas de puertas cuánticas basadas en Clifford+T, y generar circuitos en múltiples frameworks (Qiskit, Cirq, Braket) de forma rápida y unificada.
+A lightweight Python package for parsing symbolic instructions from Clifford+T-based quantum gates and generating circuits in multiple frameworks (Qiskit, Cirq, Braket) quickly and in a unified manner.
 
 ---
 
-## 🔍 Características
+## 🔍 Features
 
-- **Parser de tokens**: convierte cadenas como `X2`, `CNOT1-3`, `T0` en objetos de instrucción.
-- **Soporte Clifford+T**: maneja puertas estándar (X, Y, Z, H, S, T, CNOT) y permite descomponer puertas personalizadas en secuencias de Clifford+T.
-- **Traductores específicos**: genera circuitos en:
+- **Token parser**: converts strings such as `X2`, `CNOT1-3`, `T0` into instruction objects.
+- **Clifford+T support**: handles standard gates (X, Y, Z, H, S, T, CNOT) and allows custom gates to be broken down into sequences of Clifford+T.
+- **Specific translators**: generates circuits in:
   - Qiskit
   - Cirq
   - Amazon Braket SDK
-- **Interfaz unificada**: `UnifiedInterface` orquesta parsing y traducción según el framework elegido.
-- **Configuración extensible**: mapa de descomposiciones en JSON/YAML opcional.
+- **Unified interface**: `UnifiedInterface` orchestrates parsing and translation according to the chosen framework.
+- **Extensible configuration**: optional JSON/YAML decomposition map.
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Project structure
 
 ```
 qc_coder/
@@ -49,32 +49,32 @@ tests/
 
 ---
 
-## ⚙️ Instalación
+## ⚙️ Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
    ```bash
    git clone https://github.com/tu_usuario/qc_coder.git
    cd qc_coder
    ```
-2. Crea y activa un entorno virtual (opcional):
+2. Create and activate a virtual environment (optional):
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # Linux/Mac
    venv\Scripts\activate    # Windows
    ```
-3. Instala dependencias:
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
 ---
 
-## 🚀 Uso básico
+## 🚀 Basic usage
 
 ```python
 from qc_coder.interface import UnifiedInterface
 
-# Inicializa con Qiskit, 4 qubits y un mapa de descomposición opcional
+# Initialize with Qiskit, 4 qubits, and an optional decomposition map
 ui = UnifiedInterface(
     framework='qiskit',
     num_qubits=4,
@@ -83,19 +83,19 @@ ui = UnifiedInterface(
     }
 )
 
-# Define instrucciones simbólicas
+# Define symbolic instructions
 tokens = ['H0', 'CNOT0-1', 'T1', 'X2', 'MYGATE0']
 
-# Construye el circuito
+# Build the circuit
 circuit = ui.build_circuit(tokens)
 print(circuit)
 ```
 
 ---
 
-## 🛠️ Configuración de descomposiciones
+## 🛠️ Decomposition settings
 
-Para puertas no Clifford+T, crea un archivo JSON (`config/decomposition_map.json`):
+For non-Clifford+T doors, create a JSON file (`config/decomposition_map.json`):
 
 ```json
 {
@@ -106,7 +106,7 @@ Para puertas no Clifford+T, crea un archivo JSON (`config/decomposition_map.json
 }
 ```
 
-Y pásalo al inicializar:
+And pass it when initializing:
 
 ```python
 ui = UnifiedInterface(
@@ -126,15 +126,15 @@ pytest tests/
 
 ---
 
-## 🤝 Contribuciones
+## 🤝 Contributions
 
-1. Haz un fork del repositorio.
-2. Crea una rama con tu feature: `git checkout -b feature/nueva-puerta`.
-3. Haz commit de tus cambios: `git commit -m 'Añade descomposición de puerta'`.
-4. Abre un Pull Request.
+1. Fork the repository.
+2. Create a branch with your feature: `git checkout -b feature/new-door`.
+3. Commit your changes: `git commit -m ‘Add door decomposition’`.
+4. Open a Pull Request.
 
 ---
 
-## 📝 Licencia
+## 📝 License
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more details.
