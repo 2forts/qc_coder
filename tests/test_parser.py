@@ -55,4 +55,4 @@ def test_parse_custom_gate_without_decomposition_raises():
     parser = Parser()
     with pytest.raises(ValueError) as excinfo:
         parser.parse("MYGATE0")
-    assert "no tiene descomposición en el mapa" in str(excinfo.value)
+    assert "has no decomposition rule in the provided decomposition map" in str(excinfo.value)
