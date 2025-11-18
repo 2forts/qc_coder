@@ -5,28 +5,41 @@ from qc_coder.gates import Instruction
 try:
     from braket.circuits import Circuit
 except ImportError:
-    raise ImportError("Para usar BraketTranslator, instala amazon-braket-sdk con 'pip install amazon-braket-sdk'.")
+    raise ImportError(
+        "To use BraketTranslator, install amazon-braket-sdk with "
+        "'pip install amazon-braket-sdk'."
+    )
+
 
 class BraketTranslator(BaseTranslator):
     """
-    Traduce una lista de Instruction a un Circuit de Amazon Braket.
+    Translates a list of Instruction objects into an Amazon Braket Circuit.
+
+    The translator reconstructs a fresh Circuit on each call, ensuring
+    that the same instance can be reused without preserving state between
+    independent translation runs.
     """
+
     def __init__(self, num_qubits: int):
         self.circuit = Circuit()
         self.num_qubits = num_qubits
 
     def translate(self, instructions: List[Instruction]):
         """
-        Añade operaciones al Circuit de Braket según las instrucciones.
+        Append operations to the Braket Circuit according to the provided
+        intermediate-representation instructions.
 
-        :param instructions: Lista de objetos Instruction.
-        :return: braket.circuits.Circuit con las puertas aplicadas.
+        :param instructions: List of Instruction objects.
+        :return: braket.circuits.Circuit containing the applied operations.
         """
-        # Reinicializa el circuito para cada llamada
+        # Reset the circuit for each translation call
         from braket.circuits import Circuit
         self.circuit = Circuit()
+
         for instr in instructions:
             name = instr.name.upper()
+
+            # Single-qubit Clifford+T gates
             if name == 'X':
                 self.circuit.x(instr.targets[0])
             elif name == 'Y':
@@ -39,14 +52,35 @@ class BraketTranslator(BaseTranslator):
                 self.circuit.s(instr.targets[0])
             elif name == 'T':
                 self.circuit.t(instr.targets[0])
+
+            # Controlled operations
             elif name in ('CNOT', 'CX'):
-                # Braket cnot usa control y target en lista
-                self.circuit.cnot(control=instr.controls[0], target=instr.targets[0])
-            elif instr.name == 'RX':
-                # qubit primero, luego ángulo
+                # Braket requires explicit control and target parameters
+                self.circuit.cnot(
+                    control=instr.controls[0],
+                    target=instr.targets[0]
+                )
+
+            # Parameterized rotations
+            elif name == 'RX':
+                # Braket rotation signature: rx(qubit, angle)
                 self.circuit.rx(instr.targets[0], instr.params[0])
             elif name == 'RZ':
                 self.circuit.rz(instr.targets[0], instr.params[0])
+
+            # --------------------------------------------------------
+            # Measurement operation:
+            # MEASURE q -> circuit.measure(q)
+            # Braket does not require explicit classical registers;
+            # results are recorded based on qubit indices.
+            # --------------------------------------------------------
+            elif name == 'MEASURE':
+                target = instr.targets[0]
+                self.circuit.measure(target)
+
             else:
-                raise ValueError(f"Puerta '{name}' no soportada por BraketTranslator.")
+                raise ValueError(
+                    f"Gate '{name}' is not supported by BraketTranslator."
+                )
+
         return self.circuit
