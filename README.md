@@ -35,7 +35,12 @@ qc_coder/
     └── braket_translator.py
 
 examples/
-└── example_usage.py
+├── benchmark_generate_data.py
+├── deutsch_jozsa_demo.py
+├── example_usage.py
+├── grover_demo
+├── semantic_equivalence_benchmark.py
+└── teleportation_example.py
 
 setup.py
 requirements.txt
