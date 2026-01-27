@@ -4,6 +4,9 @@
 
 A lightweight Python package for parsing symbolic instructions from Clifford+T-based quantum gates and generating circuits in multiple frameworks (Qiskit, Cirq, Braket) quickly and in a unified manner.
 
+If you use this software in your research or projects, please cite the following work:  
+Gil‐Serret, R., Ortega, G., & Orts, F. (2026). *A Unified Interface for Framework‐Agnostic Quantum Circuit Construction Based on Tokenized Text Input*. **Software: Practice and Experience**.
+
 ---
 
 ## 🔍 Features
